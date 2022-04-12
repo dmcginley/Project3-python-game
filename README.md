@@ -1,5 +1,4 @@
-# Project 2 - Chart Data
-
+# Project 3 - Pyhton game
 <p>&nbsp;</p>
 
 Site URL:
