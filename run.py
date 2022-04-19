@@ -1,10 +1,17 @@
-#import grid
-
 from grid import Grid
 
 
 player_a_ship_grid = Grid(4)
 player_a_ship_grid.print_board()
+
+# GAME LOOP
+
+# while not game.is_over():
+#     play()
+
+# player_b_ship_grid = Grid(10)
+# player_b_ship_grid.print_board()
+
 
 
 # board = []
