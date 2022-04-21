@@ -1,8 +1,7 @@
 from grid import Grid
 from game import Game
 
-player_a_ship_grid = Grid(4)
-player_a_ship_grid.print_board()
+import time
 
 # GAME LOOP
 
@@ -32,19 +31,23 @@ player_a_ship_grid.print_board()
 
 # print("hello " + input("What is your name?") + "!")
 
-
-game = Game(2)
+grid_size = input("Enter size of game board (4 - 10): ")
+# TODO: error checking
+game = Game(int(grid_size))
+game.player_guess_grid.print_board()
 
 while not game.is_over():
     coordinates = input("Enter coordinates (e.g. D5): ")
     # TODO: error checking
     # TODO: remove all spaces "  A  6" -> "A6"
     row = coordinates[0].upper()
-    column = int(coordinates[1])
+    column = int(coordinates[1:])
     game.user_play(row, column)
+    game.player_guess_grid.print_board()
     if game.is_over():
         print(game.result)
     else:
+        time.sleep(0.5)
         game.computer_play('B', 1)
         if game.is_over():
             print(game.result)

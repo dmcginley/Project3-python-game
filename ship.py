@@ -27,3 +27,4 @@ if __name__ == '__main__':
     s.hit(3)
     print(s)
     print(s.is_sunk())
+
