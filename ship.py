@@ -1,6 +1,8 @@
 class Ship:
-    def __init__(self, length):
+    def __init__(self, length, name, letter):
         self.length = length
+        self.name = name
+        self.letter = letter
         self.hit_locations = [False] * length
 
     def hit(self, position):
@@ -19,12 +21,6 @@ class Ship:
         return str(self.hit_locations)
 
 
-if __name__ == '__main__':
-    s = Ship(4)
-    s.hit(0)
-    s.hit(1)
-    s.hit(2)
-    s.hit(3)
-    print(s)
-    print(s.is_sunk())
-
+def create_ships():
+    ships = [Ship(2, "Aircraft Carrier", 'a'), Ship(1, "Patrol Boat", 'e')]
+    return ships

@@ -1,4 +1,6 @@
-from grid import Grid
+import random
+
+from target_grid import TargetGrid
 from game import Game
 
 import time
@@ -49,5 +51,6 @@ while not game.is_over():
     else:
         time.sleep(0.5)
         game.computer_play('B', 1)
+
         if game.is_over():
             print(game.result)

@@ -1,7 +1,7 @@
 from colored import fg, bg, attr
 
 
-class Grid:
+class TargetGrid:
     ROW_LETTERS = 'ABCDEFGHIJ'
 
     OCEAN_SPACE = f"%s~%s" % (fg('blue'), attr(0))
@@ -13,14 +13,14 @@ class Grid:
         # TODO: max size 10, min size 2 for grid
         self.grid_data = []
         for i in range(grid_size):
-            row = [Grid.OCEAN_SPACE] * grid_size
+            row = [TargetGrid.OCEAN_SPACE] * grid_size
             self.grid_data.append(row)
 
     def hit_coordinate(self, row, column):
-        self.grid_data[row][column] = Grid.HIT
+        self.grid_data[row][column] = TargetGrid.HIT
 
     def miss_coordinate(self, row, column):
-        self.grid_data[row][column] = Grid.MISS
+        self.grid_data[row][column] = TargetGrid.MISS
 
     def print_board(self):
         # row_letters = ['A', 'B', 'C', 'D']
