@@ -37,6 +37,3 @@ class Game:
 
         print("board size is:", self.board_size)
         print(random.randint(0, self.board_size - 1))
-
-        # print(random.randint(1, 4))
-        # print(random.choice("a" "b" "c" "d" "e"))

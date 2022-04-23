@@ -22,5 +22,10 @@ class Ship:
 
 
 def create_ships():
+    ships = [Ship(5, "Aircraft Carrier", 'a'),
+             Ship(4, "Battleship", 'b'),
+             Ship(3, "Cruiser", 'c'),
+             Ship(3, "Submarine", 's'),
+             Ship(2, "Destroyer", 'd')]
     ships = [Ship(2, "Aircraft Carrier", 'a'), Ship(1, "Patrol Boat", 'e')]
     return ships

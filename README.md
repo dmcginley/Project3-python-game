@@ -24,26 +24,46 @@ Live website: https://dmcginley.github.io/project2-chart-my-data
 ## Who is this website for
 
 ## User Stories
+~~~
+As a user...
 
-*"As a user, I want to be able to upload a CSV file to a chart so that I will be able to view my date more visually."***
+I want...
+
+So that...
+~~~
+
+*"As a user, I want to be able to play a Battleship game in the terminal like the old style game where I can call out the coordinates link 'B1' to try and hit a ship."*
 
 Acceptance criteria:
 
-- Chart upload button.
+- Chart terminal based game.
 
-- User’s CSV displays on chart.
+- Use a coordinates method from 1 to 10, and a to j .
 
 <p>&nbsp;</p>
 
-*"As a user, I want to view my chart with a dark theme to lessen my eye strain from bright screens."*
+### User Stories todo
+
+- *"As a user, colors
+- *"As a user, clear message when a ship is hit or missed
+- *"As a user, 
+- *"As a user,
+- *"As a user,
+- *"As a user, error message if I miss the board
+- *"As a user, error message if I enter the wrong coordinates
+
+<p>&nbsp;</p>
+
+*"As a user, I want.... 
+so that I can....."*
 
 Acceptance criteria:
 
-- Dark theme with lighter chart and chart elements.
+- 
+-
+-
 
-- Buttons kept lighter than the background.
 
-- Correct contrast between colors for the dark theme.
 
 <p>&nbsp;</p>
 
