@@ -33,10 +33,10 @@ import time
 
 # print("hello " + input("What is your name?") + "!")
 
-grid_size = input("Enter size of game board (4 - 10): ")
+grid_size = input("Enter size of game board (5 - 10): ")
 # TODO: error checking
 game = Game(int(grid_size))
-game.player_guess_grid.print_board()
+game.player_target_grid.print_board()
 
 while not game.is_over():
     coordinates = input("Enter coordinates (e.g. D5): ")
@@ -45,7 +45,7 @@ while not game.is_over():
     row = coordinates[0].upper()
     column = int(coordinates[1:])
     game.user_play(row, column)
-    game.player_guess_grid.print_board()
+    game.player_target_grid.print_board()
     if game.is_over():
         print(game.result)
     else:

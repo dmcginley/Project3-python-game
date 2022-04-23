@@ -45,6 +45,13 @@ class OceanGrid:
                     hit_points = hit_points - 1
         return hit_points <= 0
 
+    def all_ships_sunk(self):
+        for ship in self.fleet:
+            sunk = self.is_ship_sunk(ship)
+            if not sunk:
+                return False
+        return True
+
     def call_shot(self, row, column):
         target_square = self.grid_data[row][column]
         print(f"target_square = {target_square}")
