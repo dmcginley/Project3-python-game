@@ -5,20 +5,20 @@ class Ship:
         self.letter = letter
         self.hit_locations = [False] * length
 
-    def hit(self, position):
-        # TODO: error checking
-        if position >= self.length:
-            raise Exception("hit position is out of scope")
-        self.hit_locations[position] = True
-
-    def is_sunk(self):
-        for location in self.hit_locations:
-            if location == False:
-                return False
-        return True
-
-    def __repr__(self):
-        return str(self.hit_locations)
+    # def hit(self, position):
+    #     # TODO: error checking
+    #     if position >= self.length:
+    #         raise Exception("hit position is out of scope")
+    #     self.hit_locations[position] = True
+    #
+    # def is_sunk(self):
+    #     for location in self.hit_locations:
+    #         if location == False:
+    #             return False
+    #     return True
+    #
+    # def __repr__(self):
+    #     return str(self.hit_locations)
 
 
 def create_ships():

@@ -22,7 +22,9 @@ class TargetGrid:
     def miss_coordinate(self, row, column):
         self.grid_data[row][column] = TargetGrid.MISS
 
-    def print_board(self):
+    def make_board(self):
+        lines = []
+
         # row_letters = ['A', 'B', 'C', 'D']
 
         row_letters = 'ABCDEFGHIJ'
@@ -35,7 +37,8 @@ class TargetGrid:
         col_markers = []
         for col in range(grid_width):
             col_markers.append(str(col + 1))  # grid counts from 1
-        print("  " + " ".join(col_markers))
+        ####print("  " + " ".join(col_markers))
+        lines.append("  " + " ".join(col_markers))
 
         for r, row in enumerate(self.grid_data):
             row = self.grid_data[r]
@@ -45,8 +48,10 @@ class TargetGrid:
             # if r == 3:
             #     row[2] = Grid.MISS
             row_cells = " ".join(row)
-            print(f"{row_letters[r]} {row_cells}")
+            ####print(f"{row_letters[r]} {row_cells}")
+            lines.append(f"{row_letters[r]} {row_cells}")
             # print(Grid.HIT)
             # print(Grid.MISS)
 
             # r = r+1
+        return lines

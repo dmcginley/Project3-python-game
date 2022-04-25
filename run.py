@@ -1,5 +1,5 @@
 import random
-
+import sys
 from target_grid import TargetGrid
 from game import Game
 
@@ -33,10 +33,21 @@ import time
 
 # print("hello " + input("What is your name?") + "!")
 
-grid_size = input("Enter size of game board (5 - 10): ")
+## grid_size = input("Enter size of game board (5 - 10): ")
+grid_size = 5  # TODO: ask user for board size
+
 # TODO: error checking
 game = Game(int(grid_size))
-game.player_target_grid.print_board()
+
+ocean_lines = game.player_ocean_grid.make_board()
+target_lines = game.player_target_grid.make_board()
+for i in range(0, len(ocean_lines)):
+    print(f"   {ocean_lines[i]}   ::   {target_lines[i]}")
+
+for ship in game.player_ocean_grid.fleet:
+    print(f"Place your {ship.name}, length: {ship.length} (e.g. A, 3)")
+
+sys.exit(0)
 
 while not game.is_over():
     coordinates = input("Enter coordinates (e.g. D5): ")
@@ -44,8 +55,12 @@ while not game.is_over():
     # TODO: remove all spaces "  A  6" -> "A6"
     row = coordinates[0].upper()
     column = int(coordinates[1:])
+
     game.user_play(row, column)
-    game.player_target_grid.print_board()
+    ocean_lines = game.player_ocean_grid.make_board()
+    target_lines = game.player_target_grid.make_board()
+    for i in range(0, len(ocean_lines)):
+        print(f"   {ocean_lines[i]}   ::   {target_lines[i]}")
     if game.is_over():
         print(game.result)
     else:

@@ -2,6 +2,7 @@ from colored import fg, bg, attr
 
 from ship import Ship
 from ship import create_ships
+from target_grid import TargetGrid
 
 from result import Hit
 from result import Miss
@@ -29,9 +30,55 @@ class OceanGrid:
             self.grid_data.append(row)
         self.fleet = create_ships()
 
-    def place_ship(self, ship, row, column, orientation):
-        self.grid_data[row][column] = ship.letter
-        # TODO: this only places first square of ship
+        # hardcode : place one ship
+
+        aircraft_carrier = self.fleet[0]
+        cruiser = self.fleet[2]
+        destroyer = self.fleet[4]
+        a = self.place_ship(aircraft_carrier, 0, 0, 'h')
+        c = self.place_ship(cruiser, 2, 1, 'v')
+        d = self.place_ship(destroyer, 4, 3, 'h')
+        # print(f"a: {a}, c: {c}, d: {d}")
+
+    def place_ship(self, ship, row_start, column_start, orientation):
+        """place ship in the grid. orientation is 'v' or 'h'.
+        If the ship would overlap another ship, return False. If successful returns True."""
+        print(f"Placing '{ship.name}' at {row_start},{column_start} / {orientation}")
+        if orientation == 'v':
+            # vertical
+            if (ship.length + row_start) > len(self.grid_data):
+                print("outside ocean grid")
+                return False
+            # check for collisions
+            for i in range(0, ship.length):
+                print(f"CHECK v: {row_start + i},{column_start}")
+                if self.grid_data[row_start + i][column_start] != OceanGrid.OCEAN_SPACE:
+                    # collision with another ship
+                    return False
+            # place ship
+            for i in range(0, ship.length):
+                print(f"v: {row_start + i},{column_start}")
+                self.grid_data[row_start + i][column_start] = ship.letter
+        elif orientation == 'h':
+            # horizontal
+            if (ship.length + column_start) > len(self.grid_data):
+                print("outside ocean grid")
+                return False
+            # check for collisions
+            for i in range(0, ship.length):
+                print(f"CHECK h: {row_start},{column_start + i}")
+                if self.grid_data[row_start][column_start + i] != OceanGrid.OCEAN_SPACE:
+                    # collision with another ship
+                    return False
+            # place ship
+            for i in range(0, ship.length):
+                print(f"CHECK h: {row_start},{column_start + i}")
+                self.grid_data[row_start][column_start + i] = ship.letter
+            # place
+            # for i in range(0, ship.length):
+            #     print(f"h: {row},{column + i}")
+            #     self.grid_data[row][column + i] = ship.letter
+        return True
 
     def is_ship_sunk(self, ship):
         """e.g. Determine if a ship 'a' with length 5 has sunk, by looking for 5 upper case 'A's in the grid."""
@@ -70,18 +117,27 @@ class OceanGrid:
             is_sunk = self.is_ship_sunk(ship)
             return Hit(hit_ship, is_sunk)
 
-    def print_grid(self):
+    def make_board(self):
+        """prints the board into an array of strings, so they can be displayed side by side"""
+        lines = []
         row_letters = 'ABCDEFGHIJ'
         grid_width = len(self.grid_data)  # grid is always square
         col_markers = []
         for col in range(grid_width):
             col_markers.append(str(col + 1))  # grid counts from 1
-        print("  " + " ".join(col_markers))
+        lines.append("  " + " ".join(col_markers))
 
         for r, row in enumerate(self.grid_data):
             row = self.grid_data[r]
-            row_cells = " ".join(row)
-            print(f"{row_letters[r]} {row_cells}")
+            display_row = []
+            for square in row:
+                if square == OceanGrid.OCEAN_SPACE:
+                    display_row.append(TargetGrid.OCEAN_SPACE)
+                else:
+                    display_row.append(square)
+            row_cells = " ".join(display_row)
+            lines.append(f"{row_letters[r]} {row_cells}")
+        return lines
 
 
 def main():
@@ -91,13 +147,13 @@ def main():
     og.place_ship(aircraft_carrier, 1, 1, 'v')  # == B 2
     patrol_boat = ships[1]
     og.place_ship(patrol_boat, 2, 3, 'h')  # == C 4
-    og.print_grid()
+    og.make_board()
     print(og.call_shot(0, 1))
-    og.print_grid()
+    og.make_board()
     print(og.call_shot(2, 3))
-    og.print_grid()
+    og.make_board()
     print(og.call_shot(3, 3))
-    og.print_grid()
+    og.make_board()
 
     print(og.is_ship_sunk(patrol_boat))
     print("-------------------")
