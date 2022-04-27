@@ -1,38 +1,47 @@
-# Project 3 - Pyhton game
+# Project 3 - Battleship game
+***A terminal base Battleship game written in Python.***
 
-<p>&nbsp;</p>
+&nbsp;
 
 Site URL:
 
-Repository for the project: https://github.com/dmcginley/project2-chart-my-data
+Repository for the project: https://github.com/dmcginley/Project3-python-game
 
-Live website: https://dmcginley.github.io/project2-chart-my-data
+Live website: -----------------------
+
+## About the Project
 
 
-<p>&nbsp;</p>
 
-![Finished image of site](readme-images/screenshot.png "the site mobile desktop and tablet")
+
+![Battleship game](readme_img/game.png "the battleship game in the terminal")
+
+The Battleship game was developed as a one player game, (one player vs the computer).
+
+
+to entertain the player, 
+
+The game is deployed on Heroku and is terminal-based for user interaction.
 
 ## Table of contents
 
-<p>&nbsp;</p>
+&nbsp;
 
 ## Wireframe
 
-![wireframe image of site](readme-images/wireframe.png "the site wireframe of desktop and mobile")
+
 
 ## Who is this website for
 
+
+
+
 ## User Stories
-~~~
-As a user...
 
-I want...
+&nbsp;
 
-So that...
-~~~
-
-*"As a user, I want to be able to play a Battleship game in the terminal like the old style game where I can call out the coordinates link 'B1' to try and hit a ship."*
+*"As a user, I want to be able to play a Battleship game in the terminal like the old style game where I can call out
+the coordinates link 'B1' to try and hit a ship."*
 
 Acceptance criteria:
 
@@ -40,99 +49,141 @@ Acceptance criteria:
 
 - Use a coordinates method from 1 to 10, and a to j .
 
-<p>&nbsp;</p>
+&nbsp;
 
-### User Stories todo
+*"As a user, I would like a clear message to tell me whether a ship has been hit or missed, so I can see what action has
+occurred.*
 
-- *"As a user, colors
-- *"As a user, clear message when a ship is hit or missed
-- *"As a user, 
-- *"As a user,
-- *"As a user,
+Acceptance criteria:
+
+- Print a message to give clear feedback to user.
+
+&nbsp;
+
+*"As a user, I want color on the board so I can quickly see what has happened so that the game feels more interactive."*
+
+Acceptance criteria: 
+
+- Add color to different events on the grid.
+
+- Have 'Hit' show as red, and 'Miss' show as white in color.
+
+&nbsp;
+
+*"As a user, I want different character to distinguish between hitting a boat and hitting water, so I can see where I hit on the board."* 
+
+Acceptance criteria:
+
+- Use 'X' character for hit, and '!' character for miss.
+
+&nbsp;
+
+*"As a user, I want an error message if I enter the wrong coordinates, such as: A4B or B22, so that I can see I if I mistyped the coordinates."*
+
+Acceptance criteria: 
+
+- Give an error message back if the user inputs coordinates outside the given parameter. 
+
+- Also prompted correct coordinates by giving an example e.g. D 4.
+
+&nbsp;
+
+
+*"As a user, I want....
+so that I can....."*
+
+Acceptance criteria:
+
+-
+-
+
+&nbsp;
+
+*"As a user, I want....
+so that I can....."*
+
+Acceptance criteria:
+
+-
+-
+
+&nbsp;
+
 - *"As a user, error message if I miss the board
 - *"As a user, error message if I enter the wrong coordinates
 
 <p>&nbsp;</p>
 
-*"As a user, I want.... 
-so that I can....."*
-
-Acceptance criteria:
-
-- 
--
--
-
-
-
-<p>&nbsp;</p>
 
 ## Technologies Used
 
+- **PyCharm** - IDE for Python
+- **GitHub**
+- **Heroku**
+
 ### The Code
 
-* **Python3**
+- **Python3**
 
 ### Libraries used
 
-- [colored 1.4.3](https://pypi.org/project/colored/) ~ Simple library for color and formatting to terminal
+- [colored 1.4.3](https://pypi.org/project/colored/) ~ Simple library for color and formatting to the terminal.
 
-### Graphic/UX Design
-
-* **Figma, Gimp, & Inkscape.**
-
-## Design Decisions
-
-I decided to create a website that would take the user on a journey for uploading a CSV file to be able to view it as a
-chart, rather than just having a chart and expecting that they would automatically know what to do with it.
 
 ## Features
 
-## Color Choices
+- Ability to place ships.
+- Try hit a ship by giving coordinates like: A 3.
+- Shows whether you hit a ship or not by displaying a X or exclamation mark (!) on the grid.
+- Print out the result of the player's move or of the computer's move, e.g. "D 3 - Miss!", or "D 4 - Hit! You've sunk my Battleship"
+- Collision detection so neither I nor the computer can place a ship on top of another.
+- Edge detection so that you cant place a ship over the edge of the boundary.
 
-## Responsiveness
+
+## Color Choices
+I chose universally understood colors for each element on the board:
+
+- The Sea is blue
+- A Hit is red
+- A Miss white
 
 ## Accessibility
 
-## Consistency
+As well as colors the different elements of the game have different characters used, so the player isn't relaying on just color to view the different outcomes on the board, (e.g. ~X!).
+
+Text is also printed out with every move to give a clear feedback to the player.
+
 
 ## Testing
 
-*All tested in Incognito mode.*
+*All tested in the terminal and also on Heroku.*
 
 ### Validator Testing
 
-- **HTML**
-  <https://validator.w3.org/>
-
-  ![HTML validator testing image](readme-images/html-valid.png)
-
-
-- **CSS**
-  <https://jigsaw.w3.org/css-validator/>
-
-  ![CSS validator testing image](readme-images/css-valid.png)
-- **JS**
+- **Python**
   <https://jshint.com/>
 
   ![image of jshint results](readme-images/js-valid.png)
 
-The 3 "unused variables" refer to the functions that are not called inside the JS file, they are callbacks from the HTML
-page.
 
 ### Manual Testing
 
 *...and how I went about it.*
 
-Checked each time that it switched between the bar and line chart smoothly.
+- Played through the game
+- I entered bad coordinates to check that it failed as expected
 
-Checked each button went to the proper location.
 
-### Responsive Testing
+**Code that prints back each area the ship is placed on**
 
-300px, to laptop 1920px, and to the desktop at 2560px (QHD).
+            for i in range(0, ship.length):
+                print(f"CHECK v: {row_start + i},{column_start}")
+                if self.grid_data[row_start + i][column_start] != OceanGrid.OCEAN_SPACE:
+                    # collision with another ship
+                    return False
 
-On larger screens, I made sure that the chart did get too large as after a certain size it became clumsy to use.
+
+![loop check for ship placement](readme_img/error1.png "image of code of loop check")
 
 ## Error Handling
 
@@ -141,18 +192,8 @@ On larger screens, I made sure that the chart did get too large as after a certa
 
 - I also set a limit of two columns so you couldn't upload a blank file.
 
-.......................
 
-.......................
 
-.......................
-
-.......................
-
-- I changed the "hitRadius" so that the chat (especially the line chart) is easier to hover on, I found this from
-  reading the [Chartjs docs.](https://www.chartjs.org/docs/latest/charts/line.html)
-
-- [jshint](https://jshint.com/) was showing a error so I reformated the clearData() function.
 
 ## Deployment TODO:
 
@@ -178,6 +219,9 @@ response times and refresh time, the links, and the buttons.
 - [Battleship Instructions PDF](https://www.hasbro.com/common/instruct/battleship.pdf)
 - [Python 3.10.4 documentation](https://docs.python.org/3/)
 - []()
+- []()
+- []()
+- []()
 
 #### Books
 
@@ -197,6 +241,7 @@ response times and refresh time, the links, and the buttons.
 - []()
 - []()
 
+
 #### Tutorials
 
 - [Code Institute - *Defining Classes in
@@ -211,5 +256,5 @@ response times and refresh time, the links, and the buttons.
 - [How to Code Battleship in Python - Single Player Game](https://www.youtube.com/watch?v=tF1WRCrd_HQ&list=PLPZlbsSRAxIoVPwTVmNYjV5HPqc-L1ARg&index=38)
 - [Game Board with 2D Array / Processing + Python](https://www.youtube.com/watch?v=nsLTQj-l_18&list=PLPZlbsSRAxIoVPwTVmNYjV5HPqc-L1ARg&index=39)
 - []()
-
-## Content
+- []()
+- []()
