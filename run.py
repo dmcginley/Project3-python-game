@@ -44,10 +44,13 @@ target_lines = game.player_target_grid.make_board()
 for i in range(0, len(ocean_lines)):
     print(f"   {ocean_lines[i]}   ::   {target_lines[i]}")
 
+game.computer_ocean_grid.randomly_place_all_ships()
+game.player_ocean_grid.randomly_place_all_ships()
+
 for ship in game.player_ocean_grid.fleet:
     print(f"Place your {ship.name}, length: {ship.length} (e.g. A, 3)")
 
-sys.exit(0)
+##sys.exit(0)
 
 while not game.is_over():
     coordinates = input("Enter coordinates (e.g. D5): ")

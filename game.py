@@ -11,16 +11,6 @@ class Game:
         self.player_ocean_grid = OceanGrid(board_size)
         self.player_target_grid = TargetGrid(board_size)
         self.computer_ocean_grid = OceanGrid(board_size)
-
-        # hard-code a computer ship
-        # self.computer_ocean_grid.grid_data[0][0] = 's'
-        # self.computer_ocean_grid.grid_data[0][1] = 's'
-        # self.computer_ocean_grid.grid_data[0][2] = 's'
-
-        # self.player_ocean_grid.grid_data[0][0] = 'c'
-        # self.player_ocean_grid.grid_data[1][0] = 'c'
-        # self.player_ocean_grid.grid_data[2][0] = 'c'
-
         self.computer_target_grid = TargetGrid(board_size)
 
         self.result = ''

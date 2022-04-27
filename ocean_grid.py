@@ -1,3 +1,5 @@
+import random
+
 from colored import fg, bg, attr
 
 from ship import Ship
@@ -6,6 +8,9 @@ from target_grid import TargetGrid
 
 from result import Hit
 from result import Miss
+
+from place_ship import Overlap
+from place_ship import NoOverlap
 
 
 class OceanGrid:
@@ -24,21 +29,33 @@ class OceanGrid:
         # TODO: max size 10, min size 2 for grid
         if grid_size < OceanGrid.MIN_GRID_SIZE or grid_size > OceanGrid.MAX_GRID_SIZE:
             raise Exception(f"Please enter a grid size between {OceanGrid.MIN_GRID_SIZE} and {OceanGrid.MAX_GRID_SIZE}")
+        self.grid_size = grid_size
         self.grid_data = []
         for i in range(grid_size):
             row = [OceanGrid.OCEAN_SPACE] * grid_size
             self.grid_data.append(row)
         self.fleet = create_ships()
 
-        # hardcode : place one ship
+    def randomly_place_all_ships(self):
+        for ship in self.fleet:
+            random_row_index = random.randint(0, self.grid_size - 1)
+            random_column_index = random.randint(0, self.grid_size - 1)
+            random_orientation = random.choice(["v", "h"])
+            print(f"RAND {ship.name} | {random_row_index},{random_column_index} : {random_orientation}")
 
-        aircraft_carrier = self.fleet[0]
-        cruiser = self.fleet[2]
-        destroyer = self.fleet[4]
-        a = self.place_ship(aircraft_carrier, 0, 0, 'h')
-        c = self.place_ship(cruiser, 2, 1, 'v')
-        d = self.place_ship(destroyer, 4, 3, 'h')
-        # print(f"a: {a}, c: {c}, d: {d}")
+            result = self.place_ship(ship, random_row_index, random_column_index, random_orientation)
+            while not result.placed:
+                random_row_index = random.randint(0, self.grid_size - 1)
+                random_column_index = random.randint(0, self.grid_size - 1)
+                random_orientation = random.choice(["v", "h"])
+                print(f"RAND retry {ship.name} | {random_row_index},{random_column_index} : {random_orientation}")
+                result = self.place_ship(ship, random_row_index, random_column_index, random_orientation)
+
+    def find_ship_by_code(self, code):
+        for ship in self.fleet:
+            if ship.letter == code:
+                return ship
+        return None  # if no ship found
 
     def place_ship(self, ship, row_start, column_start, orientation):
         """place ship in the grid. orientation is 'v' or 'h'.
@@ -48,13 +65,16 @@ class OceanGrid:
             # vertical
             if (ship.length + row_start) > len(self.grid_data):
                 print("outside ocean grid")
-                return False
+                return Overlap(f"{ship.name} would overlap edge of ocean grid")
             # check for collisions
             for i in range(0, ship.length):
                 print(f"CHECK v: {row_start + i},{column_start}")
                 if self.grid_data[row_start + i][column_start] != OceanGrid.OCEAN_SPACE:
                     # collision with another ship
-                    return False
+                    ship_code = self.grid_data[row_start + i][column_start]
+
+                    other_ship = self.find_ship_by_code(ship_code)
+                    return Overlap(f"{ship.name} would collide with {other_ship.name}")
             # place ship
             for i in range(0, ship.length):
                 print(f"v: {row_start + i},{column_start}")
@@ -63,13 +83,16 @@ class OceanGrid:
             # horizontal
             if (ship.length + column_start) > len(self.grid_data):
                 print("outside ocean grid")
-                return False
+                return Overlap(f"{ship.name} would overlap edge of ocean grid")
             # check for collisions
             for i in range(0, ship.length):
                 print(f"CHECK h: {row_start},{column_start + i}")
                 if self.grid_data[row_start][column_start + i] != OceanGrid.OCEAN_SPACE:
                     # collision with another ship
-                    return False
+                    ship_code = self.grid_data[row_start][column_start + i]
+
+                    other_ship = self.find_ship_by_code(ship_code)
+                    return Overlap(f"{ship.name} would collide with {other_ship.name}")
             # place ship
             for i in range(0, ship.length):
                 print(f"CHECK h: {row_start},{column_start + i}")
@@ -78,7 +101,7 @@ class OceanGrid:
             # for i in range(0, ship.length):
             #     print(f"h: {row},{column + i}")
             #     self.grid_data[row][column + i] = ship.letter
-        return True
+        return NoOverlap()
 
     def is_ship_sunk(self, ship):
         """e.g. Determine if a ship 'a' with length 5 has sunk, by looking for 5 upper case 'A's in the grid."""
@@ -141,63 +164,10 @@ class OceanGrid:
 
 
 def main():
-    og = OceanGrid(6)
-    ships = create_ships()
-    aircraft_carrier = ships[0]
-    og.place_ship(aircraft_carrier, 1, 1, 'v')  # == B 2
-    patrol_boat = ships[1]
-    og.place_ship(patrol_boat, 2, 3, 'h')  # == C 4
-    og.make_board()
-    print(og.call_shot(0, 1))
-    og.make_board()
-    print(og.call_shot(2, 3))
-    og.make_board()
-    print(og.call_shot(3, 3))
-    og.make_board()
-
-    print(og.is_ship_sunk(patrol_boat))
-    print("-------------------")
-
-    print(f"{bg('grey_30')}{fg('white')}a a{attr(0)}")
-    print()
-    print(f"{bg('grey_30')}{fg('white')}b{attr(0)}")
-
-    print(f"{bg('grey_30')}{fg('white')}b{attr(0)}")
+    og = OceanGrid(10)
+    for line in og.make_board():
+        print(line)
 
 
 if __name__ == '__main__':
     main()
-    # def hit_coordinate(self, row, column):
-    #     self.grid_data[row][column] = TargetGrid.HIT
-    #
-    # def miss_coordinate(self, row, column):
-    #     self.grid_data[row][column] = TargetGrid.MISS
-    #
-    # def print_board(self):
-    #     # row_letters = ['A', 'B', 'C', 'D']
-    #
-    #     row_letters = 'ABCDEFGHIJ'
-    #
-    #     # r = 0
-    #     # for row in self.grid_data:
-    #     # for r in range(len(self.grid_data)):
-    #
-    #     grid_width = len(self.grid_data)  # grid is always square
-    #     col_markers = []
-    #     for col in range(grid_width):
-    #         col_markers.append(str(col + 1))  # grid counts from 1
-    #     print("  " + " ".join(col_markers))
-    #
-    #     for r, row in enumerate(self.grid_data):
-    #         row = self.grid_data[r]
-    #         # demo colors for hit and miss
-    #         # if r == 1:
-    #         #     row[0] = Grid.HIT
-    #         # if r == 3:
-    #         #     row[2] = Grid.MISS
-    #         row_cells = " ".join(row)
-    #         print(f"{row_letters[r]} {row_cells}")
-    #         # print(Grid.HIT)
-    #         # print(Grid.MISS)
-    #
-    #         # r = r+1
