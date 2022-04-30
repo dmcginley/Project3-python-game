@@ -68,7 +68,7 @@ while not game.is_over():
         print(game.result)
     else:
         time.sleep(0.5)
-        game.computer_play('B', 1)
+        game.computer_play()
 
         if game.is_over():
             print(game.result)

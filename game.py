@@ -5,19 +5,19 @@ import random
 
 class Game:
 
-    def __init__(self, board_size):
-        self.board_size = board_size
-        self.rounds_remaining = 5
-        self.player_ocean_grid = OceanGrid(board_size)
-        self.player_target_grid = TargetGrid(board_size)
-        self.computer_ocean_grid = OceanGrid(board_size)
-        self.computer_target_grid = TargetGrid(board_size)
+    def __init__(self, grid_size):
+        self.grid_size = grid_size
+        self.player_ocean_grid = OceanGrid(grid_size)
+        self.player_target_grid = TargetGrid(grid_size)
+        self.computer_ocean_grid = OceanGrid(grid_size)
+        self.computer_target_grid = TargetGrid(grid_size)
 
         self.result = ''
 
     def is_over(self):
-        # return self.player_ocean_grid.all_ships_sunk() or self.computer_ocean_grid.all_ships_sunk()
-        return self.rounds_remaining <= 0
+        computer_wins = self.player_ocean_grid.all_ships_sunk()
+        player_wins = self.computer_ocean_grid.all_ships_sunk()
+        return computer_wins or player_wins
 
     # user game grid
     def user_play(self, row, column):
@@ -36,13 +36,25 @@ class Game:
         else:
             self.player_target_grid.miss_coordinate(row_index, column_index)
 
-        self.rounds_remaining = self.rounds_remaining - 1
-        if self.rounds_remaining == 0:
-            self.result = 'User Wins!'
-
     # computer game grid
-    def computer_play(self, row, column):
+    def computer_play(self):
+
+        row_index, column_index = self.computer_choose_coordinates_randomly()
+        row = OceanGrid.ROW_LETTERS[row_index]
+        column = column_index + 1
         print(f"Computer plays: {row} {column}")
 
-        print("board size is:", self.board_size)
-        print(random.randint(0, self.board_size - 1))
+        result = self.player_ocean_grid.call_shot(row_index, column_index)
+
+        if result.is_hit:
+            self.computer_target_grid.hit_coordinate(row_index, column_index)
+            print(f">>> HIT {result.ship_name}")
+            if result.is_sunk:
+                print(f">>> Computer sunk your {result.ship_name}")
+        else:
+            self.player_target_grid.miss_coordinate(row_index, column_index)
+
+    def computer_choose_coordinates_randomly(self):
+        random_row_index = random.randint(0, self.grid_size - 1)
+        random_column_index = random.randint(0, self.grid_size - 1)
+        return random_row_index, random_column_index
