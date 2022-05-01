@@ -84,25 +84,29 @@ while not game.is_over():
             print(f"  {fg('red')}HIT{attr(0)} {result.ship_name}")
     else:
         print(f"  {fg('white')}MISS{attr(0)}")
-        
+
     if game.is_over():
-        print(game.result)
+        print()
+        print("  YOU WIN!")
+        print()
     else:
         print()
-    time.sleep(1.5)
-    computer_result = game.computer_play()
-    print_game_board(game)
-    print()
-    print(
-        f"  Computer plays {fg('light_yellow')}{computer_result.row}{attr(0)}-{fg('light_yellow')}{computer_result.column}{attr(0)}")
-    if computer_result.is_hit:
-        if computer_result.is_sunk:
-            print(
-                f"  {fg('red')}HIT{attr(0)} {computer_result.ship_name}: Your {computer_result.ship_name} was sunk")
+        time.sleep(1.5)
+        computer_result = game.computer_play()
+        print_game_board(game)
+        print()
+        print(
+            f"  Computer plays {fg('light_yellow')}{computer_result.row}{attr(0)}-{fg('light_yellow')}{computer_result.column}{attr(0)}")
+        if computer_result.is_hit:
+            if computer_result.is_sunk:
+                print(
+                    f"  {fg('red')}HIT{attr(0)} {computer_result.ship_name}: Your {computer_result.ship_name} was sunk")
+            else:
+                print(f"  {fg('red')}HIT{attr(0)} {computer_result.ship_name}")
         else:
-            print(f"  {fg('red')}HIT{attr(0)} {computer_result.ship_name}")
-    else:
-        print(f"  {fg('white')}MISS{attr(0)}")
+            print(f"  {fg('white')}MISS{attr(0)}")
 
-if game.is_over():
-    print(game.result)
+        if game.is_over():
+            print()
+            print("  COMPUTER WINS!")
+            print()

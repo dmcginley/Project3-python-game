@@ -43,7 +43,6 @@ class OceanGrid:
             random_row_index = random.randint(0, self.grid_size - 1)
             random_column_index = random.randint(0, self.grid_size - 1)
             random_orientation = random.choice(["v", "h"])
-            ##print(f"RAND {ship.name} | {random_row_index},{random_column_index} : {random_orientation}")
 
             result = self.place_ship(ship, random_row_index,
                                      random_column_index, random_orientation)
