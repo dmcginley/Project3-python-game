@@ -14,8 +14,8 @@ from place_ship import NoOverlap
 
 
 class OceanGrid:
-    """The grid you place your ships on. A ~ is an empty space. A single lower case letter
-    is for a ship. When a ship is hit, I set it to upper case."""
+    """The grid you place your ships on. A ~ is an empty space. A single lower
+    case letter is for a ship. When a ship is hit, I set it to upper case."""
 
     ROW_LETTERS = 'ABCDEFGHIJ'
 
@@ -28,7 +28,8 @@ class OceanGrid:
     def __init__(self, grid_size):
         # TODO: max size 10, min size 2 for grid
         if grid_size < OceanGrid.MIN_GRID_SIZE or grid_size > OceanGrid.MAX_GRID_SIZE:
-            raise Exception(f"Please enter a grid size between {OceanGrid.MIN_GRID_SIZE} and {OceanGrid.MAX_GRID_SIZE}")
+            raise Exception(
+                f"Please enter a grid size between {OceanGrid.MIN_GRID_SIZE} and {OceanGrid.MAX_GRID_SIZE}")
         self.grid_size = grid_size
         self.grid_data = []
         for i in range(grid_size):
@@ -43,13 +44,16 @@ class OceanGrid:
             random_orientation = random.choice(["v", "h"])
             ##print(f"RAND {ship.name} | {random_row_index},{random_column_index} : {random_orientation}")
 
-            result = self.place_ship(ship, random_row_index, random_column_index, random_orientation)
+            result = self.place_ship(ship, random_row_index,
+                                     random_column_index, random_orientation)
             while not result.placed:
                 random_row_index = random.randint(0, self.grid_size - 1)
                 random_column_index = random.randint(0, self.grid_size - 1)
                 random_orientation = random.choice(["v", "h"])
                 ##print(f"RAND retry {ship.name} | {random_row_index},{random_column_index} : {random_orientation}")
-                result = self.place_ship(ship, random_row_index, random_column_index, random_orientation)
+                result = self.place_ship(ship, random_row_index,
+                                         random_column_index,
+                                         random_orientation)
 
     def find_ship_by_code(self, code):
         for ship in self.fleet:
@@ -59,56 +63,56 @@ class OceanGrid:
 
     def place_ship(self, ship, row_start, column_start, orientation):
         """place ship in the grid. orientation is 'v' or 'h'.
-        If the ship would overlap another ship, return False. If successful returns True."""
-        ##print(f"Placing '{ship.name}' at {row_start},{column_start} / {orientation}")
+        If the ship would overlap another ship, returns an Overlap.
+        If successful returns NoOverlap."""
         if orientation == 'v':
-            # vertical
-            if (ship.length + row_start) > len(self.grid_data):
-                ##print("outside ocean grid")
-                return Overlap(f"{ship.name} would overlap edge of ocean grid")
-            # check for collisions
-            for i in range(0, ship.length):
-                ##print(f"CHECK v: {row_start + i},{column_start}")
-                if self.grid_data[row_start + i][column_start] != OceanGrid.OCEAN_SPACE:
-                    # collision with another ship
-                    ship_code = self.grid_data[row_start + i][column_start]
-
-                    other_ship = self.find_ship_by_code(ship_code)
-                    return Overlap(f"{ship.name} would collide with {other_ship.name}")
-            # place ship
-            for i in range(0, ship.length):
-                ##print(f"v: {row_start + i},{column_start}")
-                self.grid_data[row_start + i][column_start] = ship.letter
+            return self.place_ship_vertically(ship, row_start, column_start)
         elif orientation == 'h':
-            # horizontal
-            if (ship.length + column_start) > len(self.grid_data):
-                ##print("outside ocean grid")
-                return Overlap(f"{ship.name} would overlap edge of ocean grid")
-            # check for collisions
-            for i in range(0, ship.length):
-                ##print(f"CHECK h: {row_start},{column_start + i}")
-                if self.grid_data[row_start][column_start + i] != OceanGrid.OCEAN_SPACE:
-                    # collision with another ship
-                    ship_code = self.grid_data[row_start][column_start + i]
+            return self.place_ship_horizontally(ship, row_start, column_start)
 
-                    other_ship = self.find_ship_by_code(ship_code)
-                    return Overlap(f"{ship.name} would collide with {other_ship.name}")
-            # place ship
-            for i in range(0, ship.length):
-                ##print(f"CHECK h: {row_start},{column_start + i}")
-                self.grid_data[row_start][column_start + i] = ship.letter
-            # place
-            # for i in range(0, ship.length):
-            #     print(f"h: {row},{column + i}")
-            #     self.grid_data[row][column + i] = ship.letter
+    def place_ship_vertically(self, ship, row_start, column_start):
+        # check edge overlap
+        if (ship.length + row_start) > len(self.grid_data):
+            return Overlap(f"{ship.name} would overlap edge of ocean grid")
+        # check for ship collisions
+        empty = OceanGrid.OCEAN_SPACE
+        for i in range(0, ship.length):
+            if self.grid_data[row_start + i][column_start] != empty:
+                # collision with another ship
+                ship_code = self.grid_data[row_start + i][column_start]
+
+                other_ship = self.find_ship_by_code(ship_code)
+                return Overlap(
+                    f"{ship.name} would collide with {other_ship.name}")
+        # place ship
+        for i in range(0, ship.length):
+            self.grid_data[row_start + i][column_start] = ship.letter
+        return NoOverlap()
+
+    def place_ship_horizontally(self, ship, row_start, column_start):
+        # check edge overlap
+        if (ship.length + column_start) > len(self.grid_data):
+            return Overlap(f"{ship.name} would overlap edge of ocean grid")
+        # check for ship collisions
+        empty = OceanGrid.OCEAN_SPACE
+        for i in range(0, ship.length):
+            if self.grid_data[row_start][column_start + i] != empty:
+                # collision with another ship
+                ship_code = self.grid_data[row_start][column_start + i]
+                other_ship = self.find_ship_by_code(ship_code)
+                return Overlap(
+                    f"{ship.name} would collide with {other_ship.name}")
+        # place ship
+        for i in range(0, ship.length):
+            self.grid_data[row_start][column_start + i] = ship.letter
         return NoOverlap()
 
     def is_ship_sunk(self, ship):
-        """e.g. Determine if a ship 'a' with length 5 has sunk, by looking for 5 upper case 'A's in the grid."""
+        """e.g. Determine if a ship 'a' with length 5 has sunk,
+        by looking for 5 upper case 'A's in the grid."""
 
         hit_points = ship.length
         hit_letter = ship.letter.upper()
-        ##print(f" is ship sunk?? hit point for {ship.name} = {hit_points} - searching for {hit_letter}")
         for row in self.grid_data:
             for square in row:
                 if square == hit_letter:
@@ -135,7 +139,8 @@ class OceanGrid:
             hit_ship = None
 
             for ship in self.fleet:
-                print(f"check if target_square {target_square} == {ship.letter} ship.letter")
+                print(
+                    f"check if target_square {target_square} == {ship.letter} ship.letter")
                 if target_square.lower() == ship.letter:
                     hit_ship = ship
                     break
@@ -143,7 +148,8 @@ class OceanGrid:
             return Hit(hit_ship, is_sunk)
 
     def make_board(self):
-        """prints the board into an array of strings, so they can be displayed side by side"""
+        """prints the board into an array of strings, so they can be displayed
+        side by side"""
         lines = []
         row_letters = 'ABCDEFGHIJ'
         grid_width = len(self.grid_data)  # grid is always square
