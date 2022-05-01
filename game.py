@@ -51,4 +51,15 @@ class Game:
     def computer_choose_coordinates_randomly(self):
         random_row_index = random.randint(0, self.grid_size - 1)
         random_column_index = random.randint(0, self.grid_size - 1)
+
+        cell = self.computer_target_grid.grid_data[random_row_index][
+            random_column_index]
+        while cell == TargetGrid.HIT or cell == TargetGrid.MISS:
+            print("guessing again...")
+            random_row_index = random.randint(0, self.grid_size - 1)
+            random_column_index = random.randint(0, self.grid_size - 1)
+
+            cell = self.computer_target_grid.grid_data[random_row_index][
+                random_column_index]
+
         return random_row_index, random_column_index
