@@ -4,12 +4,16 @@ from colored import fg, bg, attr
 class TargetGrid:
     ROW_LETTERS = 'ABCDEFGHIJ'
 
-    OCEAN_SPACE = f"%s~%s" % (fg('blue'), attr(0))
-    HIT = f"%sX%s" % (fg('red'), attr(0))
-    # MISS = f"%s!%s" % (fg('dark_slate_gray_3'), attr(0))
-    MISS = f"%s!%s" % (fg('white'), attr(0))
+    OCEAN_SPACE = "~"
+    HIT = "X"
+    MISS = "!"
 
-    def __init__(self, grid_size):
+    OCEAN_SPACE_COLOR = f"{fg('blue')}~{attr(0)}"
+    HIT_COLOR = f"{fg('red')}X{attr(0)}"
+    MISS_COLOR = f"{fg('white')}!{attr(0)}"
+
+    def __init__(self, player_name, grid_size):
+        self.player_name = player_name
         # TODO: max size 10, min size 2 for grid
         self.grid_data = []
         for i in range(grid_size):
@@ -24,34 +28,26 @@ class TargetGrid:
 
     def make_board(self):
         lines = []
-
-        # row_letters = ['A', 'B', 'C', 'D']
-
-        row_letters = 'ABCDEFGHIJ'
-
-        # r = 0
-        # for row in self.grid_data:
-        # for r in range(len(self.grid_data)):
+        lines.append(self.player_name)
+        lines.append("")
+        row_letters = TargetGrid.ROW_LETTERS
 
         grid_width = len(self.grid_data)  # grid is always square
         col_markers = []
         for col in range(grid_width):
             col_markers.append(str(col + 1))  # grid counts from 1
-        ####print("  " + " ".join(col_markers))
         lines.append("  " + " ".join(col_markers))
 
         for r, row in enumerate(self.grid_data):
             row = self.grid_data[r]
-            # demo colors for hit and miss
-            # if r == 1:
-            #     row[0] = Grid.HIT
-            # if r == 3:
-            #     row[2] = Grid.MISS
-            row_cells = " ".join(row)
-            ####print(f"{row_letters[r]} {row_cells}")
+            row_with_color = []
+            for cell in row:
+                if cell == TargetGrid.OCEAN_SPACE:
+                    row_with_color.append(TargetGrid.OCEAN_SPACE_COLOR)
+                elif cell == TargetGrid.HIT:
+                    row_with_color.append(TargetGrid.HIT_COLOR)
+                elif cell == TargetGrid.MISS:
+                    row_with_color.append(TargetGrid.MISS_COLOR)
+            row_cells = " ".join(row_with_color)
             lines.append(f"{row_letters[r]} {row_cells}")
-            # print(Grid.HIT)
-            # print(Grid.MISS)
-
-            # r = r+1
         return lines

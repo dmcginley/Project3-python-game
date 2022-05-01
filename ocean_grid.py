@@ -25,7 +25,8 @@ class OceanGrid:
     MIN_GRID_SIZE = 5
     MAX_GRID_SIZE = 10
 
-    def __init__(self, grid_size):
+    def __init__(self, player_name, grid_size):
+        self.player_name = player_name
         # TODO: max size 10, min size 2 for grid
         if grid_size < OceanGrid.MIN_GRID_SIZE or grid_size > OceanGrid.MAX_GRID_SIZE:
             raise Exception(
@@ -127,30 +128,41 @@ class OceanGrid:
         return True
 
     def call_shot(self, row, column):
+        row_letter = OceanGrid.ROW_LETTERS[row]
+        column_label = column + 1
         target_square = self.grid_data[row][column]
-        print(f"target_square = {target_square}")
         if target_square == OceanGrid.OCEAN_SPACE or target_square == OceanGrid.MISS:
-            print("Miss!")
             self.grid_data[row][column] = OceanGrid.MISS
-            return Miss()
+            return Miss(row_letter, column_label)
         else:
-            print(f"HIT! ship {target_square}")
             self.grid_data[row][column] = target_square.upper()
             hit_ship = None
 
             for ship in self.fleet:
-                print(
-                    f"check if target_square {target_square} == {ship.letter} ship.letter")
                 if target_square.lower() == ship.letter:
                     hit_ship = ship
                     break
             is_sunk = self.is_ship_sunk(ship)
-            return Hit(hit_ship, is_sunk)
+            row_letter = OceanGrid.ROW_LETTERS[row]
+            column_label = column + 1
+            return Hit(row_letter, column_label, hit_ship, is_sunk)
+
+    def is_uppercase(self, code):
+        return code == code.upper()
 
     def make_board(self):
         """prints the board into an array of strings, so they can be displayed
         side by side"""
         lines = []
+        padding_length = (self.grid_size * 2) - len(self.player_name)
+
+        header_shim = 1
+        if self.grid_size > 9:
+            header_shim = 2
+        padding = " " * (padding_length + header_shim)
+        player_name_padded = self.player_name + padding
+        lines.append(player_name_padded)
+        lines.append("")
         row_letters = 'ABCDEFGHIJ'
         grid_width = len(self.grid_data)  # grid is always square
         col_markers = []
@@ -161,13 +173,24 @@ class OceanGrid:
         for r, row in enumerate(self.grid_data):
             row = self.grid_data[r]
             display_row = []
-            for square in row:
-                if square == OceanGrid.OCEAN_SPACE:
-                    display_row.append(TargetGrid.OCEAN_SPACE)
+            for cell in row:
+                if cell == OceanGrid.OCEAN_SPACE:
+                    display_row.append(TargetGrid.OCEAN_SPACE_COLOR)
+                elif cell == OceanGrid.MISS:
+                    display_row.append(TargetGrid.MISS_COLOR)
+
                 else:
-                    display_row.append(square)
+                    if self.is_uppercase(cell):
+                        display_row.append(TargetGrid.HIT_COLOR)
+                    else:
+                        ship_cell = f"{fg('chartreuse_3a')}{cell}{attr(0)}"
+                        display_row.append(ship_cell)
             row_cells = " ".join(display_row)
-            lines.append(f"{row_letters[r]} {row_cells}")
+            shim = ''
+            if self.grid_size > 9:
+                # align with '10' in grid header
+                shim = ' '
+            lines.append(f"{row_letters[r]} {row_cells}{shim}")
         return lines
 
 
