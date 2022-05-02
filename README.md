@@ -139,6 +139,36 @@ Acceptance criteria:
 - Collision detection so neither I nor the computer can place a ship on top of another.
 - Edge detection so that you cant place a ship over the edge of the boundary.
 
+## Files & classes
+
+There are 7 files:
+
+- **ship.py** *~ the ships properties*
+	- class Ship
+
+- **place_ship.py** *~ how to place the ship on the grid, & error handeling for that.*
+	- class PlacementResult
+	- class NoOverlap
+	- class Overlap
+
+- **ocean_grid.py** *~ my grid space.*
+	- class OceanGrid
+
+- **target_grid.py** *~ my view of computer grid space.*
+	- class TargetGrid
+
+- **result.py** *~ the outcome of a hit or miss.*
+	- class Result
+	- class Miss
+	- class Hit
+
+- **game.py**
+class Game:
+
+
+- **run.py**
+
+
 
 ## Color Choices
 I chose universally understood colors for each element on the board:
