@@ -8,8 +8,8 @@ import sys
 
 
 def print_game_board(game):
-    ocean_lines = game.player_ocean_grid.make_board()
-    target_lines = game.player_target_grid.make_board()
+    ocean_lines = game.players_ocean_grid.make_board()
+    target_lines = game.players_target_grid.make_board()
 
     for i in range(0, len(ocean_lines)):
         divider = '  '
@@ -63,8 +63,8 @@ def main():
 
     # TODO: error checking
     game = Game(int(grid_size))
-    game.computer_ocean_grid.randomly_place_all_ships()
-    game.player_ocean_grid.randomly_place_all_ships()
+    game.computers_ocean_grid.randomly_place_all_ships()
+    game.players_ocean_grid.randomly_place_all_ships()
 
     print_game_board(game)
 
@@ -83,8 +83,18 @@ def main():
                 sys.exit(0)
             try:
                 row, column = parse_coordinates(grid_size, user_inputs)
-                got_coordinates = True
-                result = game.user_play(row, column)
+                row_index = TargetGrid.ROW_LETTERS.index(row)
+                column_index = column - 1
+                target_grid_data = game.players_target_grid.grid_data
+                target = target_grid_data[row_index][column_index]
+                if target == TargetGrid.OCEAN_SPACE:
+                    got_coordinates = True
+                    result = game.user_play(row, column)
+                else:
+                    coordinates = f"{row}-{column}"
+                    print(
+                        f"{fg('light_yellow')}You have already attacked {coordinates}{attr(0)}")
+                    print()
             except Exception as err:
                 print(f"{fg('light_yellow')}{err}{attr(0)}")
                 print()
