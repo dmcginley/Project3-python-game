@@ -143,21 +143,21 @@ Acceptance criteria:
 
 There are 7 files:
 
-- **ship.py** *~ the ships properties*
+- **ship.py** ~ *the ships properties*
 	- class Ship
 
-- **place_ship.py** *~ how to place the ship on the grid, & error handeling for that.*
+- **place_ship.py** ~ *how to place the ship on the grid, & error handeling for that.*
 	- class PlacementResult
 	- class NoOverlap
 	- class Overlap
 
-- **ocean_grid.py** *~ my grid space.*
+- **ocean_grid.py** ~ *my grid space.*
 	- class OceanGrid
 
-- **target_grid.py** *~ my view of computer grid space.*
+- **target_grid.py** ~ *my view of computer grid space.*
 	- class TargetGrid
 
-- **result.py** *~ the outcome of a hit or miss.*
+- **result.py** ~ *the outcome of a hit or miss.*
 	- class Result
 	- class Miss
 	- class Hit
@@ -174,8 +174,9 @@ class Game:
 I chose universally understood colors for each element on the board:
 
 - The Sea is blue
+- The ships are green
 - A Hit is red
-- A Miss white
+- A Miss is white
 
 ## Accessibility
 
@@ -248,20 +249,28 @@ response times and refresh time, the links, and the buttons.
 
 - [Battleship Instructions PDF](https://www.hasbro.com/common/instruct/battleship.pdf)
 - [Python 3.10.4 documentation](https://docs.python.org/3/)
-- []()
+- [Real Python (realpython.com)](https://realpython.com/documenting-python-code/#basics-of-commenting-code)
 - []()
 - []()
 - []()
 
 #### Books
 
-- [Python Basics - *by Fletcher Heisler, David Amos & Dan
+- [Python Basics ~ *by Fletcher Heisler, David Amos & Dan
   Bader*](https://www.goodreads.com/book/show/43448128-python-basics-dan-bader)
 
 ##### Videos
 
-- [Python Tutorial - Python Full Course for Beginners](https://www.youtube.com/watch?v=_uQrJ0TkZlc&list=PLPZlbsSRAxIoVPwTVmNYjV5HPqc-L1ARg&index=3)
-- [12 Beginner Python Projects - Coding Course](https://www.youtube.com/watch?v=8ext9G7xspg&list=PLPZlbsSRAxIoVPwTVmNYjV5HPqc-L1ARg&index=5)
+- [Python Tutorial ~ Python Full Course for Beginners](https://www.youtube.com/watch?v=_uQrJ0TkZlc&list=PLPZlbsSRAxIoVPwTVmNYjV5HPqc-L1ARg&index=3)
+
+- [12 Beginner Python Projects ~ Coding Course](https://www.youtube.com/watch?v=8ext9G7xspg&list=PLPZlbsSRAxIoVPwTVmNYjV5HPqc-L1ARg&index=5)
+
+- [Python for Beginners ~ Microsoft Developer](https://www.youtube.com/playlist?list=PLlrxD0HtieHhS8VzuMCfQD4uJ9yne1mE6)
+
+- [More Python for Beginners ~ Microsoft Developer](https://www.youtube.com/playlist?list=PLlrxD0HtieHiXd-nEby-TMCoUNwhbLUnj)
+
+- [100 Days of Code: The Complete Python Pro Bootcamp for 2022](https://www.udemy.com/course/100-days-of-code/)
+
 
 ## Credits
 
@@ -284,6 +293,7 @@ response times and refresh time, the links, and the buttons.
 ##### Videos
 
 - [How to Code Battleship in Python - Single Player Game](https://www.youtube.com/watch?v=tF1WRCrd_HQ&list=PLPZlbsSRAxIoVPwTVmNYjV5HPqc-L1ARg&index=38)
+
 - [Game Board with 2D Array / Processing + Python](https://www.youtube.com/watch?v=nsLTQj-l_18&list=PLPZlbsSRAxIoVPwTVmNYjV5HPqc-L1ARg&index=39)
 - []()
 - []()
