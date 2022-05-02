@@ -2,7 +2,7 @@ from colored import fg, bg, attr
 
 
 class TargetGrid:
-    ROW_LETTERS = 'ABCDEFGHIJ'
+    ROW_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
     OCEAN_SPACE = "~"
     HIT = "X"

@@ -12,8 +12,6 @@ class Game:
         self.computer_ocean_grid = OceanGrid("Computer", grid_size)
         self.computer_target_grid = TargetGrid("Target", grid_size)
 
-        self.result = ''
-
     def is_over(self):
         computer_wins = self.player_ocean_grid.all_ships_sunk()
         player_wins = self.computer_ocean_grid.all_ships_sunk()
@@ -37,7 +35,7 @@ class Game:
     def computer_play(self):
 
         row_index, column_index = self.computer_choose_coordinates_randomly()
-        row = OceanGrid.ROW_LETTERS[row_index]
+        row = TargetGrid.ROW_LETTERS[row_index]
         column = column_index + 1
 
         result = self.player_ocean_grid.call_shot(row_index, column_index)

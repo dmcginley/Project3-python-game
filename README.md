@@ -132,10 +132,10 @@ Acceptance criteria:
 
 ## Features
 
-- Ability to place ships.
-- Try hit a ship by giving coordinates like: A 3.
+- Ability to place ships randomly for player and computer.
+- Try to hit a ship by giving coordinates like: A 3.
 - Shows whether you hit a ship or not by displaying a X or exclamation mark (!) on the grid.
-- Print out the result of the player's move or of the computer's move, e.g. "D 3 - Miss!", or "D 4 - Hit! You've sunk my Battleship"
+- Print out the result of the player's move or of the computer's move, e.g. "D 3 - Miss!", or "D 4 - Hit! You sunk my Battleship"
 - Collision detection so neither I nor the computer can place a ship on top of another.
 - Edge detection so that you cant place a ship over the edge of the boundary.
 

@@ -17,7 +17,7 @@ class OceanGrid:
     """The grid you place your ships on. A ~ is an empty space. A single lower
     case letter is for a ship. When a ship is hit, I set it to upper case."""
 
-    ROW_LETTERS = 'ABCDEFGHIJ'
+    #
 
     OCEAN_SPACE = "~"
     MISS = "!"
@@ -127,7 +127,7 @@ class OceanGrid:
         return True
 
     def call_shot(self, row, column):
-        row_letter = OceanGrid.ROW_LETTERS[row]
+        row_letter = TargetGrid.ROW_LETTERS[row]
         column_label = column + 1
         target_square = self.grid_data[row][column]
         if target_square == OceanGrid.OCEAN_SPACE or target_square == OceanGrid.MISS:
@@ -142,7 +142,7 @@ class OceanGrid:
                     hit_ship = ship
                     break
             is_sunk = self.is_ship_sunk(ship)
-            row_letter = OceanGrid.ROW_LETTERS[row]
+            row_letter = TargetGrid.ROW_LETTERS[row]
             column_label = column + 1
             return Hit(row_letter, column_label, hit_ship, is_sunk)
 
@@ -162,7 +162,7 @@ class OceanGrid:
         player_name_padded = self.player_name + padding
         lines.append(player_name_padded)
         lines.append("")
-        row_letters = 'ABCDEFGHIJ'
+        row_letters = TargetGrid.ROW_LETTERS
         grid_width = len(self.grid_data)  # grid is always square
         col_markers = []
         for col in range(grid_width):
