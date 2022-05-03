@@ -2,6 +2,7 @@ from colored import fg, attr
 from game import Game
 from result import Miss
 from target_grid import TargetGrid
+from ocean_grid import OceanGrid
 
 import time
 import sys
@@ -58,8 +59,42 @@ def parse_coordinates(grid_size, coordinate_string):
     return row, column
 
 
+def print_warning(message):
+    print(f"{fg('light_yellow')}{message}{attr(0)}")
+
+
+def prompt_for_grid_size():
+    min_g = OceanGrid.MIN_GRID_SIZE
+    max_g = OceanGrid.MAX_GRID_SIZE
+    default = f", or hit ENTER for default size ({max_g})"
+    prompt = f"Please enter grid size between {min_g} and {max_g}{default}: "
+
+    grid_size = 0
+
+    while grid_size == 0:
+        user_input = input(prompt)
+        if user_input.strip() == "":
+            grid_size = OceanGrid.MAX_GRID_SIZE
+        else:
+            if user_input.isnumeric():
+                grid_size = int(user_input)
+                if grid_size < min_g or grid_size > max_g:
+                    message = f"{grid_size} is not between {min_g} and {max_g}"
+                    print()
+                    print_warning(message)
+                    print()
+                    grid_size = 0  # loop again
+            else:
+                print()
+                print_warning(f"Please enter a number")
+                print()
+    return grid_size
+
+
 def main():
-    grid_size = 6  # TODO: ask user for board size
+    print()
+    grid_size = prompt_for_grid_size()
+    print()
 
     # TODO: error checking
     game = Game(int(grid_size))
@@ -74,8 +109,9 @@ def main():
         got_coordinates = False
         result = Miss(0, 0)
         while not got_coordinates:
+            quit = "- enter Q to quit"
             user_inputs = input(
-                f"Enter coordinates (e.g. D5): {fg('light_yellow')}")
+                f"Enter coordinates (e.g. D5) {quit}: {fg('light_yellow')}")
             if user_inputs.upper().strip() == 'Q':
                 print()
                 print(f"{fg('light_yellow')}Quitting game. Goodbye!{attr(0)}")
