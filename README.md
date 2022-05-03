@@ -278,7 +278,7 @@ response times and refresh time, the links, and the buttons.
 
 - [colored 1.4.3](https://pypi.org/project/colored/) ~ Simple library for color and formatting to terminal
 - []()
-- []()
+- [The Battleship ascii art](https://asciiart.cc/view/11041)
 
 
 #### Tutorials
