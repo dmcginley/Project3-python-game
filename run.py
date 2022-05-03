@@ -63,6 +63,45 @@ def print_warning(message):
     print(f"{fg('light_yellow')}{message}{attr(0)}")
 
 
+opening_text = f'''
+{'-' * 52}
+                - BATTLESHIP -
+{'-' * 52}'''
+
+ascii_art = '''
+ _______ _______ _______ _______ ___     _______ _______ __   __ ___ _______ 
+|  _    |   _   |       |       |   |   |       |       |  | |  |   |       |
+| |_|   |  |_|  |_     _|_     _|   |   |    ___|  _____|  |_|  |   |    _  |
+|       |       | |   |   |   | |   |   |   |___| |_____|       |   |   |_| |
+|  _   ||       | |   |   |   | |   |___|    ___|_____  |       |   |    ___|
+| |_|   |   _   | |   |   |   | |       |   |___ _____| |   _   |   |   |    
+|_______|__| |__| |___|   |___| |_______|_______|_______|__| |__|___|___| 
+'''
+
+instructions = '''            
+                - INSTRUCTIONS -
+                
+    # Enter a grid size between 5 and 10.
+    # Ships are placed automatically.
+    # The fleet consists of:
+        a   Aircraft Carrier   length 5
+        b   Battleship         length 4
+        c   Cruiser            length 3
+        s   Submarine          length 3
+        d   Destroyer          length 2     
+           
+    # Each turn, guess a coordinate e.g. d2.
+                
+        X - shows a Hit
+        ! - shows a Miss
+
+    # q - to quit the game.     
+'''
+print(f"{fg('grey_62')}{attr(1)}{opening_text}{attr(0)}")
+print(f"{fg('dark_sea_green_4a')}{ascii_art}{attr(0)}")
+print(f"{fg('grey_62')}{attr(1)}{instructions}{attr(0)}")
+
+
 def prompt_for_grid_size():
     min_g = OceanGrid.MIN_GRID_SIZE
     max_g = OceanGrid.MAX_GRID_SIZE

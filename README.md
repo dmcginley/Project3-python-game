@@ -13,8 +13,7 @@ Live website: -----------------------
 
 
 
-
-![Battleship game](readme_img/game.png "the battleship game in the terminal")
+![Battleship game image](readme_img/game.png "the battleship game in the terminal")
 
 The Battleship game was developed as a one player game, (one player vs the computer).
 
