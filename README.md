@@ -137,6 +137,15 @@ Acceptance criteria:
 
 ## Features
 
+- Ships are represented by their leter:
+
+	- **a** - Aircraft Carrier   
+	- **b** - Battleship        
+	- **c** - Cruiser         
+	- **s** - Submarine  
+	- **d** - Destroyer 
+
+
 - Ability to place ships randomly for player and computer.
 	- Collision detection so neither I nor the computer can place a ship on top of another.
 	- Edge detection so that you cant place a ship over the edge of the boundary.
@@ -154,27 +163,26 @@ There are 7 files:
 - **ship.py** ~ *the ships properties*
 	- class Ship
 
-- **place_ship.py** ~ *object to tell if ships could be placed*
+- **place_ship.py** ~ *object to tell if ships could be placed, or if there is a collision*
 	- class PlacementResult
 	- class NoOverlap
 	- class Overlap
 
-- **ocean_grid.py** ~ *my grid space.*
+- **ocean_grid.py** ~ *where the ships are placed for each player, this is the grid that lies flat on the table in the original board game*
 	- class OceanGrid
 
-- **target_grid.py** ~ *my view of computer grid space.*
+- **target_grid.py** ~ *a player's view of their opponent's positions, this is the vertical grid in the board game*
 	- class TargetGrid
 
-- **result.py** ~ *the outcome of a hit or miss.*
+- **result.py** ~ *the outcome of a hit or miss*
 	- class Result
 	- class Miss
 	- class Hit
 
-- **game.py**
+- **game.py** ~ *keeps track of all four grids in the game, and handles hits and misses on the grids*
 	- class Game:
 
-
-- **run.py**
+- **run.py** ~ *handles the game logic of user turns*
 
 
 
@@ -199,38 +207,34 @@ Text is also printed out with every move to give a clear feedback to the player.
 
 ### Validator Testing
 
-- **Python**
-  <https://jshint.com/>
+- [**pep8online**](http://pep8online.com/) - All 7 files passed (All right) with on errors.
 
-  ![image of jshint results](readme-images/js-valid.png)
+
+![pep8 testing](readme_img/pep8.png "image of pep8 testing passed")
 
 
 ### Manual Testing
 
 *...and how I went about it.*
 
-- Played through the game
-- I entered bad coordinates to check that it failed as expected
+- Created one ship on a 4 x 4 board, knowing where it is on the board, hit the ship to return a HIT as expected. 
+- Played through the game at each stage of the development process.
+- I entered bad coordinates to check that it failed as expected.
+- Once the game was finished I played through the game several times to check that either I won or the computer won.
 
-
-**Code that prints back each area the ship is placed on**
-
-            for i in range(0, ship.length):
-                print(f"CHECK v: {row_start + i},{column_start}")
-                if self.grid_data[row_start + i][column_start] != OceanGrid.OCEAN_SPACE:
-                    # collision with another ship
-                    return False
-
-
-![loop check for ship placement](readme_img/error1.png "image of code of loop check")
 
 ## Error Handling
 
-- I implemented it to show an error when you would upload an image, as before that PapaParse would still parse the image
-  into an array, so it wouldn't catch the error,
+- Grid size asks again if less than 5 or greater that 10.
+- prompt again if hit repeated space.
+- gives error if entering e.g. 3c instead of c3.
+- gives error if entering position off the grid. 
 
-- I also set a limit of two columns so you couldn't upload a blank file.
 
+## Troubleshooting
+- I found the game would sometimes crash when trying to find a ship. This was because I assumed any space that was not a ~ was a ship, which did not include ! for a miss. This also sometimes happened when I had hit a space already, so the code was trying to find a ship with letter 'A' instead of 'a'.  I fixed both of these by not allowing the user to attack a space twice, that is checking for ! or a capital letter before calling the shot.
+- Sometimes it would look like it was targeting the wrong coordinates. I would enter A-1 and it would attack A-5. This is because it read it as "A" and -1, so the row[-1] would give the last position. I fixed this by removing any character from input that is not alphanumeric.
+- There was a display problem when lining up the two grids side by side. For a 10 x 10 grid, the header "10" left the alignment of the second grid off by one space. I fixed this by checking if it was a 10 x 10 grid in the output method, and adding a single space at the end.
 
 
 
@@ -238,7 +242,7 @@ Text is also printed out with every move to give a clear feedback to the player.
 
 Deployed using [Heroku](https://www.heroku.com)
 
-- App already created
+- With the app already created on the Heroku site
 - Installed Heroku in the terminal 
 - Run the command: heroku login -i
 - login with my username & password
@@ -256,16 +260,21 @@ response times and refresh time, the links, and the buttons.
 **Battleship** game can be found here - https://project3-python-game.herokuapp.com/ *(same link as above)*.
 
 ## Version Control
-The version control is done using [GitHub](https://github.com). 
+The version control is done using Git through [GitHub](https://github.com). 
 
 The link to the project is https://github.com/dmcginley/Project3-python-game
 
 
 
 
-##### HOW TO CLONE THE PROJECT
+#### HOW TO CLONE THE PROJECT
 
-##### Heroku
+1. From the repository https://github.com/dmcginley/Project3-python-game navigate to **Code** and in the dropdown menu select the url: (https://github.com/dmcginley/Project3-python-game.git).
+
+2. Open a Terminal on your computer.
+3. Type **git clone**, and then paste the URL you copied earlier.
+4. Press Enter to create your local clone.
+
 
 ## Resources
 
@@ -274,7 +283,6 @@ The link to the project is https://github.com/dmcginley/Project3-python-game
 - [Battleship Instructions PDF](https://www.hasbro.com/common/instruct/battleship.pdf)
 - [Python 3.10.4 documentation](https://docs.python.org/3/)
 - [Real Python (realpython.com)](https://realpython.com/documenting-python-code/#basics-of-commenting-code)
-- []()
 - []()
 - []()
 
@@ -300,8 +308,8 @@ The link to the project is https://github.com/dmcginley/Project3-python-game
 
 *Sites content, media, and help with implementing code from tutorials & online help.*
 
-- [colored 1.4.3](https://pypi.org/project/colored/) ~ Simple library for color and formatting to terminal
-- [The Battleship ascii art](https://asciiart.cc/view/11041)
+- [**colored** 1.4.3](https://pypi.org/project/colored/) ~ Simple library for color and formatting to terminal
+- [Site for the **ascii art** for Battleship](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20)
 - [stack**overflow** - print one character at a time in Python](https://stackoverflow.com/questions/9246076/how-to-print-one-character-at-a-time-on-one-line)
 
 
@@ -320,5 +328,4 @@ The link to the project is https://github.com/dmcginley/Project3-python-game
 
 - [Game Board with 2D Array / Processing + Python](https://www.youtube.com/watch?v=nsLTQj-l_18&list=PLPZlbsSRAxIoVPwTVmNYjV5HPqc-L1ARg&index=39)
 - []()
-- []()
-- []()
+

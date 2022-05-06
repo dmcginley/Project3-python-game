@@ -26,9 +26,7 @@ class TargetGrid:
         self.grid_data[row][column] = TargetGrid.MISS
 
     def make_board(self):
-        lines = []
-        lines.append(self.player_name)
-        lines.append("")
+        lines = [self.player_name, ""]
         row_letters = TargetGrid.ROW_LETTERS
 
         grid_width = len(self.grid_data)  # grid is always square

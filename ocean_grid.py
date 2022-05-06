@@ -1,5 +1,5 @@
 import random
-from colored import fg, bg, attr
+from colored import fg, attr
 from ship import create_ships
 from target_grid import TargetGrid
 from result import Hit, Miss
@@ -53,7 +53,7 @@ class OceanGrid:
 
     def place_ship(self, ship, row_start, column_start, orientation):
         """place ship in the grid. orientation is 'v' or 'h'.
-        If the ship would overlap another ship, returns an Overlap.
+        If the ship overlapped another ship, returns an Overlap.
         If successful returns NoOverlap."""
         if orientation == 'v':
             return self.place_ship_vertically(ship, row_start, column_start)

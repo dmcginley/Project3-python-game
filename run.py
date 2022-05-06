@@ -133,6 +133,7 @@ def prompt_for_grid_size():
 
 
 def main():
+    computer_delay_seconds = 1
     print()
     grid_size = prompt_for_grid_size()
     print()
@@ -145,12 +146,11 @@ def main():
 
     while not game.is_over():
         print()
-
         got_coordinates = False
         result = Miss(0, 0)
         while not got_coordinates:
-            user_inputs = input(f"Enter coordinates (e.g. D5): \
-{fg('light_yellow')}")
+            user_inputs = input(f"Enter coordinates (e.g. D5)\
+ - enter Q to quit: {fg('light_yellow')}")
             if user_inputs.upper().strip() == 'Q':
                 print()
                 print(f"{fg('light_yellow')}Quitting game. Goodbye!{attr(0)}")
@@ -167,7 +167,7 @@ def main():
                     result = game.user_play(row, column)
                 else:
                     coordinates = f"{row}-{column}"
-                    print(f"{fg('light_yellow')}You have already attacked\
+                    print(f"{fg('light_yellow')}You have already attacked \
 {coordinates}{attr(0)}")
                     print()
             except Exception as err:
@@ -181,7 +181,7 @@ def main():
         if result.is_hit:
             if result.is_sunk:
                 print(
-                    f"  {fg('red')}{attr(1)}HIT{attr(0)}\
+                    f"  {fg('red')}{attr(1)}HIT{attr(0)} \
 {result.ship_name}: You sunk my {result.ship_name}")
             else:
                 print(f"  {fg('red')}{attr(1)}HIT{attr(0)} {result.ship_name}")
@@ -194,7 +194,7 @@ def main():
             print()
         else:
             print()
-            time.sleep(1.5)
+            time.sleep(computer_delay_seconds)
             computer_result = game.computer_play()
             print_game_board(game)
             print()
