@@ -163,7 +163,7 @@ There are 7 files:
 - **ship.py** ~ *the ships properties*
 	- class Ship
 
-- **place_ship.py** ~ *object to tell if ships could be placed, or if there is a collision*
+- **placement_result.py** ~ *object to tell if ships could be placed, or if there is a collision*
 	- class PlacementResult
 	- class NoOverlap
 	- class Overlap

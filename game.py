@@ -27,18 +27,12 @@ class Game:
             self.players_target_grid.hit_coordinate(row_index, column_index)
         else:
             self.players_target_grid.miss_coordinate(row_index, column_index)
-
         return result
 
     # computer game grid
     def computer_play(self):
-
         row_index, column_index = self.computer_choose_coordinates_randomly()
-        row = TargetGrid.ROW_LETTERS[row_index]
-        column = column_index + 1
-
         result = self.players_ocean_grid.call_shot(row_index, column_index)
-
         if result.is_hit:
             self.computers_target_grid.hit_coordinate(row_index, column_index)
         else:

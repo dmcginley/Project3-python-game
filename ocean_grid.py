@@ -3,7 +3,7 @@ from colored import fg, attr
 from ship import create_ships
 from target_grid import TargetGrid
 from result import Hit, Miss
-from place_ship import Overlap, NoOverlap
+from placement_result import Overlap, NoOverlap
 
 
 class OceanGrid:
@@ -132,12 +132,13 @@ class OceanGrid:
                 if target_square.lower() == ship.letter:
                     hit_ship = ship
                     break
-            is_sunk = self.is_ship_sunk(ship)
+            is_sunk = self.is_ship_sunk(hit_ship)
             row_letter = TargetGrid.ROW_LETTERS[row]
             column_label = column + 1
             return Hit(row_letter, column_label, hit_ship, is_sunk)
 
-    def is_uppercase(self, code):
+    @staticmethod
+    def is_uppercase(code):
         return code == code.upper()
 
     def make_board(self):
@@ -170,7 +171,7 @@ class OceanGrid:
                     display_row.append(TargetGrid.MISS_COLOR)
 
                 else:
-                    if self.is_uppercase(cell):
+                    if OceanGrid.is_uppercase(cell):
                         display_row.append(TargetGrid.HIT_COLOR)
                     else:
                         ship_cell = f"{fg('chartreuse_3a')}{cell}{attr(0)}"
@@ -182,13 +183,3 @@ class OceanGrid:
                 shim = ' '
             lines.append(f"{row_letters[r]} {row_cells}{shim}")
         return lines
-
-
-def main():
-    og = OceanGrid(10)
-    for line in og.make_board():
-        print(line)
-
-
-if __name__ == '__main__':
-    main()
