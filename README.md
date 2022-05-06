@@ -129,6 +129,11 @@ Acceptance criteria:
 
 - [colored 1.4.3](https://pypi.org/project/colored/) ~ Simple library for color and formatting to the terminal.
 
+## General Game-play Layout
+
+![game flowchart](readme_img/game-flowchart.png "flowchart of the game play")
+
+######  *Game play from the users perspective*
 
 ## Features
 
