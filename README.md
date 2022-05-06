@@ -40,14 +40,30 @@ The game is deployed on Heroku and is terminal-based for user interaction.
 
 &nbsp;
 
-*"As a user, I want to be able to play a Battleship game in the terminal like the old style game where I can call out
+**Top Level Feature:**
+
+*"As a user, I want to be able to play a Battleship game in 	the terminal like the old style game where I can call out
 the coordinates link 'B1' to try and hit a ship."*
 
 Acceptance criteria:
 
 - Chart terminal based game.
-
 - Use a coordinates method from 1 to 10, and a to j .
+
+&nbsp;
+
+&nbsp;
+
+
+*"As a user, I want to be able to set the grid size,
+so that I can choose to play a short or a long game"*
+
+Acceptance criteria:
+
+- Prompt the user for a grid size between 5 and 10
+- Show error and ask again if the number given is not between 5 and 10
+- Create a game grid as given, and display game grids side by side with proper alignment
+
 
 &nbsp;
 
@@ -57,24 +73,30 @@ occurred.*
 Acceptance criteria:
 
 - Print a message to give clear feedback to user.
+- If it is a miss, print MISS.
+- If it is a hit, print HIT and the name of the ship.
+- if a hit is the last hit on the ship, also print "You sunk my ship" giving the ship name.
+
 
 &nbsp;
 
-*"As a user, I want color on the board so I can quickly see what has happened so that the game feels more interactive."*
+*"As a user, I want color on the board so I can quickly see what has happened so that the game gives quicker visual feedback."*
 
 Acceptance criteria: 
 
 - Add color to different events on the grid.
-
 - Have 'Hit' show as red, and 'Miss' show as white in color.
+- The ocean grid should be blue.
+
 
 &nbsp;
 
-*"As a user, I want different character to distinguish between hitting a boat and hitting water, so I can see where I hit on the board."* 
+*"As a user, I want different character to distinguish between hitting a boat and hitting water, so I can see where I hit on the board, even if the terminal does not support color output."* 
 
 Acceptance criteria:
 
 - Use 'X' character for hit, and '!' character for miss.
+
 
 &nbsp;
 
@@ -83,29 +105,33 @@ Acceptance criteria:
 Acceptance criteria: 
 
 - Give an error message back if the user inputs coordinates outside the given parameter. 
-
+- Explain the specific error, if possible e.g. the first coordinate should be a letter.
 - Also prompted correct coordinates by giving an example e.g. D 4.
 
-&nbsp;
-
-
-*"As a user, I want....
-so that I can....."*
-
-Acceptance criteria:
-
--
--
 
 &nbsp;
 
-*"As a user, I want....
-so that I can....."*
+
+*"As a user, I want the game to randomly place ships for me and the computer player,
+so that I can start playing straight away."*
 
 Acceptance criteria:
 
--
--
+- All 5 ships should be randomly placed on each player's grid.
+- No ship should go off the edge of the board.
+- No ship should overlap with any other ship.
+
+
+&nbsp;
+
+*"As a user, I want the game to tell me when the game is over
+so that I can quickly see who has won."*
+
+Acceptance criteria:
+
+- After each turn, check if the opponent has had every ship in their fleet sunk.
+- If the computer has had all ships sunk, print "You win", and exit the game.
+- In the opposite case, print "Computer Wins", and exit the game.
 
 &nbsp;
 
@@ -207,7 +233,7 @@ Text is also printed out with every move to give a clear feedback to the player.
 
 ### Validator Testing
 
-- [**pep8online**](http://pep8online.com/) - All 7 files passed (All right) with on errors.
+- [**pep8online**](http://pep8online.com/) - All 7 files passed (All right) with no errors.
 
 
 ![pep8 testing](readme_img/pep8.png "image of pep8 testing passed")
@@ -238,29 +264,28 @@ Text is also printed out with every move to give a clear feedback to the player.
 
 
 
-## Deployment TODO:
+## Deployment
 
 Deployed using [Heroku](https://www.heroku.com)
 
-- With the app already created on the Heroku site
+- Created an app (project3-python-game) on the Heroku site
 - Installed Heroku in the terminal 
 - Run the command: heroku login -i
 - login with my username & password
-- Then run the following command: heroku git:remote -a 
-
-
-- heroku git: remote -a project3-python-game
+- Then run the following command: heroku git:remote -a project3-python-game
 - In pycharm terminal enter: git push heroku main
+- Every time I need to redeploy I just run the last step: git push heroku main
 
 
 
-Once everything compiled & ran corectly I checked everything was working ok. I checked that the files would upload ok. I checked
-response times and refresh time, the links, and the buttons.
+Once everything compiled & ran correctly I checked everything was working okay. I made sure that I could enter text, and that the colors displayed correctly in the terminal in Heroku.
 
-**Battleship** game can be found here - https://project3-python-game.herokuapp.com/ *(same link as above)*.
+My **Battleship** game can be found here - https://project3-python-game.herokuapp.com/ *(same link as above)*.
+
+
 
 ## Version Control
-The version control is done using Git through [GitHub](https://github.com). 
+The version control is done using Git through [GitHub](https://github.com).
 
 The link to the project is https://github.com/dmcginley/Project3-python-game
 
@@ -280,11 +305,10 @@ The link to the project is https://github.com/dmcginley/Project3-python-game
 
 *General reading and resources.*
 
-- [Battleship Instructions PDF](https://www.hasbro.com/common/instruct/battleship.pdf)
 - [Python 3.10.4 documentation](https://docs.python.org/3/)
 - [Real Python (realpython.com)](https://realpython.com/documenting-python-code/#basics-of-commenting-code)
-- []()
-- []()
+#### The Game
+- [Battleship Rule Book PDF](https://www.hasbro.com/common/instruct/battleship.pdf)
 
 #### Books
 
@@ -327,5 +351,4 @@ The link to the project is https://github.com/dmcginley/Project3-python-game
 - [How to Code Battleship in Python - Single Player Game](https://www.youtube.com/watch?v=tF1WRCrd_HQ&list=PLPZlbsSRAxIoVPwTVmNYjV5HPqc-L1ARg&index=38)
 
 - [Game Board with 2D Array / Processing + Python](https://www.youtube.com/watch?v=nsLTQj-l_18&list=PLPZlbsSRAxIoVPwTVmNYjV5HPqc-L1ARg&index=39)
-- []()
 
