@@ -12,6 +12,9 @@ Live website: https://project3-python-game.herokuapp.com/
 
 
 ![Battleship game image](readme_img/game.png "the battleship game in the terminal")
+###### The gameplay after a few steps in.
+
+&nbsp;
 
 The Battleship game was developed as a one-player game, (one player vs the computer).
 
@@ -47,7 +50,10 @@ The game is deployed on Heroku and is terminal-based for user interaction.
 
 ## Wireframe
 
-- landscape not portrait
+![Wireframe for game](readme_img/mockup.png "the battleship game drawn out")
+###### A quick sketch of what the end game could look like.
+
+&nbsp;
 
 In the classic board game, your own ship's grid lies flat on the table, and the target grid is vertical. This could be shown with a portrait design, but a terminal is normally a landscape shape, so I placed the two grids side by side.
 
@@ -61,7 +67,6 @@ In the classic board game, your own ship's grid lies flat on the table, and the 
 
 ## User Stories
 
-&nbsp;
 
 **Top Level Feature:**
 
@@ -178,6 +183,7 @@ Acceptance criteria:
 
 ######  *Gameplay showing the users followed by computers turn.*
 
+
 ## Features
 
 - Ships are represented by their leter:
@@ -277,7 +283,9 @@ Text is also printed out with every move to give clear feedback to the player.
 
 ## Troubleshooting
 - I found the game would sometimes crash when trying to find a ship. This was because I assumed any space that was not a '~' was a ship, which did not include '!' for a miss. This also sometimes happened when I had hit a space already, so the code was trying to find a ship with the letter 'A' instead of 'a'.  I fixed both of these by not allowing the user to attack a space twice i.e. checking for '!' or a capital letter before calling the shot.
+
 - Sometimes it would look like it was targeting the wrong coordinates. I would enter A-1 and it would attack A-5. This is because it read it as "A" and -1, so the row[-1] would give the last position. I fixed this by removing any character from input that is not alphanumeric.
+
 - There was a display problem when lining up the two grids side by side. For a 10 x 10 grid, the wider header "10" left the alignment of the second grid off by one space. I fixed this by checking if it was a 10 x 10 grid in the output method and adding a single space at the end.
 
 
@@ -353,6 +361,7 @@ The link to the project is https://github.com/dmcginley/Project3-python-game
 - [**colored** 1.4.3](https://pypi.org/project/colored/) ~ Simple library for color and formatting to terminal
 - [Site for the **ascii art** for Battleship](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20)
 - [stack**overflow** - print one character at a time in Python](https://stackoverflow.com/questions/9246076/how-to-print-one-character-at-a-time-on-one-line)
+- [Lucidchart](https://www.lucidchart.com) - Used for creating the Flowchart
 
 
 #### Tutorials
