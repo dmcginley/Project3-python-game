@@ -19,8 +19,6 @@ class Game:
 
     # user game grid
     def user_play(self, row, column):
-        #  change row letter to row index (e.g. B -> 1), and column
-        #  to column index (e.g. 1 -> 0)
         row_index = TargetGrid.ROW_LETTERS.index(row)
         column_index = column - 1
 
@@ -54,7 +52,6 @@ class Game:
         cell = self.computers_target_grid.grid_data[random_row_index][
             random_column_index]
         while cell == TargetGrid.HIT or cell == TargetGrid.MISS:
-            # print("guessing again...")
             random_row_index = random.randint(0, self.grid_size - 1)
             random_column_index = random.randint(0, self.grid_size - 1)
 

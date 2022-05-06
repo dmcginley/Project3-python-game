@@ -1,23 +1,14 @@
 import random
-
 from colored import fg, bg, attr
-
-from ship import Ship
 from ship import create_ships
 from target_grid import TargetGrid
-
-from result import Hit
-from result import Miss
-
-from place_ship import Overlap
-from place_ship import NoOverlap
+from result import Hit, Miss
+from place_ship import Overlap, NoOverlap
 
 
 class OceanGrid:
     """The grid you place your ships on. A ~ is an empty space. A single lower
     case letter is for a ship. When a ship is hit, I set it to upper case."""
-
-    #
 
     OCEAN_SPACE = "~"
     MISS = "!"
@@ -27,10 +18,10 @@ class OceanGrid:
 
     def __init__(self, player_name, grid_size):
         self.player_name = player_name
-        # TODO: max size 10, min size 2 for grid
-        if grid_size < OceanGrid.MIN_GRID_SIZE or grid_size > OceanGrid.MAX_GRID_SIZE:
-            raise Exception(
-                f"Please enter a grid size between {OceanGrid.MIN_GRID_SIZE} and {OceanGrid.MAX_GRID_SIZE}")
+        if grid_size < OceanGrid.MIN_GRID_SIZE or \
+                grid_size > OceanGrid.MAX_GRID_SIZE:
+            raise Exception(f"Please enter a grid size between \
+{OceanGrid.MIN_GRID_SIZE} and {OceanGrid.MAX_GRID_SIZE}")
         self.grid_size = grid_size
         self.grid_data = []
         for i in range(grid_size):
@@ -50,7 +41,6 @@ class OceanGrid:
                 random_row_index = random.randint(0, self.grid_size - 1)
                 random_column_index = random.randint(0, self.grid_size - 1)
                 random_orientation = random.choice(["v", "h"])
-                ##print(f"RAND retry {ship.name} | {random_row_index},{random_column_index} : {random_orientation}")
                 result = self.place_ship(ship, random_row_index,
                                          random_column_index,
                                          random_orientation)
@@ -130,7 +120,8 @@ class OceanGrid:
         row_letter = TargetGrid.ROW_LETTERS[row]
         column_label = column + 1
         target_square = self.grid_data[row][column]
-        if target_square == OceanGrid.OCEAN_SPACE or target_square == OceanGrid.MISS:
+        if target_square == OceanGrid.OCEAN_SPACE or \
+                target_square == OceanGrid.MISS:
             self.grid_data[row][column] = OceanGrid.MISS
             return Miss(row_letter, column_label)
         else:

@@ -1,4 +1,4 @@
-from colored import fg, bg, attr
+from colored import fg, attr
 
 
 class TargetGrid:
@@ -14,7 +14,6 @@ class TargetGrid:
 
     def __init__(self, player_name, grid_size):
         self.player_name = player_name
-        # TODO: max size 10, min size 2 for grid
         self.grid_data = []
         for i in range(grid_size):
             row = [TargetGrid.OCEAN_SPACE] * grid_size

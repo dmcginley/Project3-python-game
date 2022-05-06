@@ -19,11 +19,6 @@ def print_game_board(game):
         print(f"   {ocean_lines[i]}    {divider}    {target_lines[i]}")
 
 
-# for ship in game.player_ocean_grid.fleet:
-#    print(f"Place your {ship.name}, length: {ship.length} (e.g. A, 3)")
-
-##sys.exit(0)
-
 def cleanup_input(user_input):
     clean_input = []
     for ch in user_input:
@@ -35,7 +30,6 @@ def cleanup_input(user_input):
 def parse_coordinates(grid_size, coordinate_string):
     coordinates = cleanup_input(coordinate_string)
     print(attr(0))
-    # TODO: error checking
 
     first_coordinate = coordinates[0]
     second_coordinate = coordinates[1:]
@@ -63,53 +57,47 @@ def delay_print(s):
     for c in s:
         print(c, end='')
         sys.stdout.flush()
-        time.sleep(0.1)
+        time.sleep(0.07)
 
 
 def print_warning(message):
     print(f"{fg('light_yellow')}{message}{attr(0)}")
 
 
-# opening_text = f'''
-# {'-' * 52}
-#                 - BATTLESHIP -
-# {'-' * 52}'''
-
 ascii_art = '''
- _______ _______ _______ _______ ___     _______ _______ __   __ ___ _______ 
+ _______ _______ _______ _______ ___     _______ _______ __   __ ___ _______
 |  _    |   _   |       |       |   |   |       |       |  | |  |   |       |
 | |_|   |  |_|  |_     _|_     _|   |   |    ___|  _____|  |_|  |   |    _  |
 |       |       | |   |   |   | |   |   |   |___| |_____|       |   |   |_| |
 |  _   ||       | |   |   |   | |   |___|    ___|_____  |       |   |    ___|
-| |_|   |   _   | |   |   |   | |       |   |___ _____| |   _   |   |   |    
-|_______|__| |__| |___|   |___| |_______|_______|_______|__| |__|___|___| 
+| |_|   |   _   | |   |   |   | |       |   |___ _____| |   _   |   |   |
+|_______|__| |__| |___|   |___| |_______|_______|_______|__| |__|___|___|
 '''
 
-instructions = '''            
+instructions = '''
                 - INSTRUCTIONS -
-                
+
     # Enter a grid size between 5 and 10.
     # Ships are placed automatically.
-        a   Aircraft Carrier   length 5
-        b   Battleship         length 4
-        c   Cruiser            length 3
-        s   Submarine          length 3
-        d   Destroyer          length 2     
-           
-    # Each turn, guess a coordinate e.g. d2.     
+        a   Aircraft Carrier   length: 5
+        b   Battleship         length: 4
+        c   Cruiser            length: 3
+        s   Submarine          length: 3
+        d   Destroyer          length: 2
+
+    # Each turn, guess a coordinate e.g. d2.
         X - shows a Hit
         ! - shows a Miss
 
-    # q - to quit the game.     
+    # q - to quit the game.
 '''
-##print(f"{fg('grey_62')}{attr(1)}{opening_text}{attr(0)}")
 
 # ascii art
 print(f"{fg('dark_sea_green_4a')}{ascii_art}{attr(0)}")
 
 time.sleep(0.5)
 
-# delay
+# delay printing of text
 print(f"{fg('grey_62')}{attr(1)}{' ' * 17}", end='')
 delay_print("- BATTLESHIP -\n")
 
@@ -149,7 +137,6 @@ def main():
     grid_size = prompt_for_grid_size()
     print()
 
-    # TODO: error checking
     game = Game(int(grid_size))
     game.computers_ocean_grid.randomly_place_all_ships()
     game.players_ocean_grid.randomly_place_all_ships()
@@ -162,9 +149,8 @@ def main():
         got_coordinates = False
         result = Miss(0, 0)
         while not got_coordinates:
-            quit = "- enter Q to quit"
-            user_inputs = input(
-                f"Enter coordinates (e.g. D5) {quit}: {fg('light_yellow')}")
+            user_inputs = input(f"Enter coordinates (e.g. D5): \
+{fg('light_yellow')}")
             if user_inputs.upper().strip() == 'Q':
                 print()
                 print(f"{fg('light_yellow')}Quitting game. Goodbye!{attr(0)}")
@@ -181,8 +167,8 @@ def main():
                     result = game.user_play(row, column)
                 else:
                     coordinates = f"{row}-{column}"
-                    print(
-                        f"{fg('light_yellow')}You have already attacked {coordinates}{attr(0)}")
+                    print(f"{fg('light_yellow')}You have already attacked\
+{coordinates}{attr(0)}")
                     print()
             except Exception as err:
                 print(f"{fg('light_yellow')}{err}{attr(0)}")
@@ -190,12 +176,13 @@ def main():
 
         print_game_board(game)
         print()
-        print(
-            f"  Player plays {fg('light_yellow')}{result.row}{attr(0)}-{fg('light_yellow')}{result.column}{attr(0)}")
+        print(f"  Player plays {fg('light_yellow')}{result.row}\
+{attr(0)}-{fg('light_yellow')}{result.column}{attr(0)}")
         if result.is_hit:
             if result.is_sunk:
                 print(
-                    f"  {fg('red')}{attr(1)}HIT{attr(0)} {result.ship_name}: You sunk my {result.ship_name}")
+                    f"  {fg('red')}{attr(1)}HIT{attr(0)}\
+{result.ship_name}: You sunk my {result.ship_name}")
             else:
                 print(f"  {fg('red')}{attr(1)}HIT{attr(0)} {result.ship_name}")
         else:
@@ -211,15 +198,15 @@ def main():
             computer_result = game.computer_play()
             print_game_board(game)
             print()
-            print(
-                f"  Computer plays {fg('light_yellow')}{computer_result.row}{attr(0)}-{fg('light_yellow')}{computer_result.column}{attr(0)}")
+            print(f"  Computer plays {fg('light_yellow')}{computer_result.row}\
+{attr(0)}-{fg('light_yellow')}{computer_result.column}{attr(0)}")
             if computer_result.is_hit:
                 if computer_result.is_sunk:
-                    print(
-                        f"  {fg('red')}{attr(1)}HIT{attr(0)} {computer_result.ship_name}: Your {computer_result.ship_name} was sunk")
+                    print(f"  {fg('red')}{attr(1)}HIT{attr(0)} \
+{computer_result.ship_name}: Your {computer_result.ship_name} was sunk")
                 else:
-                    print(
-                        f"  {fg('red')}{attr(1)}HIT{attr(0)} {computer_result.ship_name}")
+                    print(f"  {fg('red')}{attr(1)}HIT{attr(0)} \
+{computer_result.ship_name}")
             else:
                 print(f"  {fg('white')}{attr(1)}MISS{attr(0)}")
 
